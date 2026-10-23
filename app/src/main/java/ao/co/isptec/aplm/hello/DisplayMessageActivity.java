@@ -1,0 +1,27 @@
+package ao.co.isptec.aplm.hello;
+
+import android.os.Bundle;
+import android.content.Intent;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+
+public class DisplayMessageActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_display_message);
+
+        Intent intent = getIntent();
+        String mensagem = intent.getStringExtra(MainActivity.CHAVE);
+
+        TextView textoMensagem = findViewById(R.id.text_message);
+
+        if (mensagem != null)
+        {
+            textoMensagem.setText(mensagem);
+        }
+    }
+}
