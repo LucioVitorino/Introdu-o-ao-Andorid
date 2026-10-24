@@ -21,4 +21,13 @@
         android:text="Prioridade: Média"
         android:textSize="14sp" />
 
+    <TextView
+        android:id="@+id/text_data_limite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Data limite: 30/10/2026"
+        android:textSize="14sp" />
+
+
 </LinearLayout>

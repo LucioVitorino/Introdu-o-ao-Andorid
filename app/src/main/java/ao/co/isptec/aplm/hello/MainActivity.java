@@ -2,9 +2,12 @@ package ao.co.isptec.aplm.hello;
 
 
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -16,11 +19,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
     private final ArrayList<Tarefa> tarefas = new ArrayList<>();
     private TarefaAdapter adaptador;
+    private String dataLimiteSelecionada = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +51,37 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            Tarefa tarefa = new Tarefa(nome, prioridade, "");
+            Tarefa tarefa = new Tarefa(nome, prioridade, dataLimiteSelecionada);
             tarefas.add(tarefa);
             adaptador.notifyDataSetChanged();
 
             campoTarefas.setText("");
+        });
+
+        Button botaoData = findViewById(R.id.button_data);
+
+        botaoData.setOnClickListener(v -> {
+            Calendar calendario = Calendar.getInstance();
+
+            int ano = calendario.get(Calendar.YEAR);
+            int mes = calendario.get(Calendar.MONTH);
+            int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog selectorData = new DatePickerDialog(
+                    MainActivity.this, (datePicker, anoEscolhido, mesEscolhido, diaEscolhido) -> {
+                        dataLimiteSelecionada = String.format(
+                                java.util.Locale.ROOT,
+                                "%02d/%02d/%04d",
+                                diaEscolhido,
+                                mesEscolhido + 1,
+                                anoEscolhido
+                        );
+                        botaoData.setText(dataLimiteSelecionada);
+            },
+                    ano, mes, dia
+            );
+
+            selectorData.show();
         });
 
 

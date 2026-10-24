@@ -30,9 +30,12 @@ public class TarefaAdapter extends ArrayAdapter<Tarefa> {
 
         TextView textNome = vista.findViewById(R.id.text_nome_tarefa);
         TextView textPrioridade = vista.findViewById(R.id.text_prioridade_tarefa);
+        TextView textDataLimite = vista.findViewById(R.id.text_data_limite);
 
         textNome.setText(tarefa.getNome());
         textPrioridade.setText("Prioridade : " + tarefa.getPrioridade());
+        textDataLimite.setText(tarefa.getDataLimite().isEmpty() ?
+                "Data limite não definida" : "Data Limite : " + tarefa.getDataLimite());
 
         return (vista);
     }
