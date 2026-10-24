@@ -1,9 +1,13 @@
 package ao.co.isptec.aplm.hello;
 
-import android.content.Intent;
+
+
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,26 +15,47 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
-    public static final String CHAVE =
-            "ao.co.isptec.aplm.hello.MENSAGEM";
+
+    private final ArrayList<Tarefa> tarefas = new ArrayList<>();
+    private ArrayAdapter<String> adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        EditText campoMensagem = findViewById(R.id.edit_message);
-        Button botaoEnviar = findViewById(R.id.button_send);
 
-        botaoEnviar.setOnClickListener(v ->{
-            String mensagem = campoMensagem.getText().toString();
-            Intent intent = new Intent(MainActivity.this,
-                    DisplayMessageActivity.class);
-            intent.putExtra(CHAVE,
-                    mensagem);
-            startActivity(intent);
+        EditText campoTarefas = findViewById(R.id.edit_tarefa);
+        Button botaoAdicionar = findViewById(R.id.button_adicionar);
+        ListView listaTarefas = findViewById(R.id.lista_tarefas);
+        Spinner spinnerPrioridade = findViewById(R.id.spinner_prioridade);
+
+
+
+        adaptador = new ArrayAdapter<>(
+                this, android.R.layout.simple_list_item_1,
+                new ArrayList<String>()
+        );
+        listaTarefas.setAdapter(adaptador);
+
+        botaoAdicionar.setOnClickListener(v -> {
+            String nome = campoTarefas.getText().toString().trim();
+            String prioridade = spinnerPrioridade.getSelectedItem().toString();
+            if (nome.isEmpty()){
+                campoTarefas.setError("Introdux o nome da tarefas");
+                return;
+            }
+
+            Tarefa tarefa = new Tarefa(nome, prioridade, "");
+            tarefas.add(tarefa);
+            adaptador.add(tarefa.getNome());
+
+            campoTarefas.setText("");
         });
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());

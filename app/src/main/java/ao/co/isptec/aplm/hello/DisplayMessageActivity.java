@@ -13,15 +13,5 @@ public class DisplayMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_message);
-
-        Intent intent = getIntent();
-        String mensagem = intent.getStringExtra(MainActivity.CHAVE);
-
-        TextView textoMensagem = findViewById(R.id.text_message);
-
-        if (mensagem != null)
-        {
-            textoMensagem.setText(mensagem);
-        }
     }
 }

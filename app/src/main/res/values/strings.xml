@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Hello</string>
+
+    <string-array name="prioridades">
+        <item>Baixa</item>
+        <item>Média</item>
+        <item>Alta</item>
+    </string-array>
+
+    <string-array name="filtros">
+        <item>Todas</item>
+        <item>Pendentes</item>
+        <item>Concluídas</item>
+    </string-array>
+
 </resources>
