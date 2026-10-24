@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private final ArrayList<Tarefa> tarefas = new ArrayList<>();
-    private ArrayAdapter<String> adaptador;
+    private TarefaAdapter adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        adaptador = new ArrayAdapter<>(
-                this, android.R.layout.simple_list_item_1,
-                new ArrayList<String>()
-        );
+        adaptador = new TarefaAdapter(this, tarefas);
         listaTarefas.setAdapter(adaptador);
 
         botaoAdicionar.setOnClickListener(v -> {
@@ -51,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
             Tarefa tarefa = new Tarefa(nome, prioridade, "");
             tarefas.add(tarefa);
-            adaptador.add(tarefa.getNome());
+            adaptador.notifyDataSetChanged();
 
             campoTarefas.setText("");
         });
